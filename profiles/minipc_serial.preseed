@@ -1,8 +1,5 @@
 d-i debian-installer/add-kernel-opts string i915.modeset=0 video=efifb:off console=ttyS0,115200
 
-d-i console-keymaps-at/keymap select us
-d-i keyboard-configuration/xkb-keymap select us
-
 # Skip creation of a normal user account.
 d-i passwd/make-user boolean false
 
