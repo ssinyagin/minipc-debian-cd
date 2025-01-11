@@ -1,4 +1,5 @@
-d-i debian-installer/add-kernel-opts string i915.modeset=0 video=efifb:off console=ttyS0,115200
+# to disable the graphical console completely, add "i915.modeset=0 video=efifb:off"
+d-i debian-installer/add-kernel-opts string console=tty1 console=ttyS0,115200
 
 # Skip creation of a normal user account.
 d-i passwd/make-user boolean false
@@ -29,20 +30,20 @@ d-i partman-auto/method string regular
 # Custom partition layout: both /boot and root in ext4, with noatime option
 d-i partman-auto/expert_recipe string                         \
       boot-root ::                                            \
-               538 538 1075 free                              \
+              538 10 1075 free                                \
                       $iflabel{ gpt }                         \
                       $reusemethod{ }                         \
                       method{ efi }                           \
                       format{ }                               \
               .                                               \
-              512 512 128 ext4                                 \
+              538 10 1075 ext4                                \
                       $primary{ } $bootable{ }                \
                       method{ format } format{ }              \
                       use_filesystem{ } filesystem{ ext4 }    \
                       mountpoint{ /boot }                     \
                       options/noatime{ noatime }              \
               .                                               \
-              500 10000 1000000000 ext4                       \
+              500 1000 -1 ext4                                \
                       method{ format } format{ }              \
                       use_filesystem{ } filesystem{ ext4 }    \
                       mountpoint{ / }                         \
